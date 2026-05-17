@@ -1,4 +1,4 @@
-def call(String projectName, String imageVersion, String dockerHubUser){
+def call(String dockerHubUser, String projectName, String imageVersion){
 
     echo '''
     ██████╗     ██╗   ██╗    ██╗    ██╗         ██████╗
