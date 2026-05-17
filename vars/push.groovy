@@ -1,33 +1,33 @@
-def call(String project, String imageTag, String dockerHubUser){
+def call(String credentialsId, String project, String imageTag){
 
-        echo '''
-        ██████╗     ██╗   ██╗    ███████╗    ██╗  ██╗
-        ██╔══██╗    ██║   ██║    ██╔════╝    ██║  ██║
-        ██████╔╝    ██║   ██║    ███████╗    ███████║
-        ██╔═══╝     ██║   ██║    ╚════██║    ██╔══██║
-        ██║          ╚██████╔╝    ███████║    ██║  ██║
-        ╚═╝           ╚═════╝     ╚══════╝    ╚═╝  ╚═╝
-        '''
-    
-        withCredentials([usernamePassword(
-            credentialsId: 'dockerHubCred',
-            passwordVariable: 'dockerHubPass',
-            usernameVariable: 'dockerHubUser')]) {
-    
-            echo "Docker Login Successful for User: ${dockerHubUser}"
-    
-            sh "docker login -u ${dockerHubUser} -p ${env.dockerHubPass}"
-        }
-    
-        sh "docker push ${dockerHubUser}/${project}:${imageTag}"
-    
-        echo '''
-        ███████╗    ██╗   ██╗     ██████╗     ██████╗    ███████╗
-        ██╔════╝    ██║   ██║    ██╔════╝    ██╔════╝    ██╔════╝
-        ███████╗    ██║   ██║    ██║         ██║         █████╗
-        ╚════██║    ██║   ██║    ██║         ██║         ██╔══╝
-        ███████║    ╚██████╔╝    ╚██████╗    ╚██████╗    ███████╗
-        ╚══════╝     ╚═════╝      ╚═════╝     ╚═════╝    ╚══════╝
-        '''
-    
+            echo '''
+            ██████╗     ██╗   ██╗    ███████╗    ██╗  ██╗
+            ██╔══██╗    ██║   ██║    ██╔════╝    ██║  ██║
+            ██████╔╝    ██║   ██║    ███████╗    ███████║
+            ██╔═══╝     ██║   ██║    ╚════██║    ██╔══██║
+            ██║          ╚██████╔╝    ███████║    ██║  ██║
+            ╚═╝           ╚═════╝     ╚══════╝    ╚═╝  ╚═╝
+            '''
+        
+            withCredentials([usernamePassword(
+                credentialsId: credentialsId,
+                passwordVariable: 'dockerHubPass',
+                usernameVariable: 'dockerHubUser')]) {
+        
+                echo "Docker Login Successful for User: ${env.dockerHubUser}"
+        
+                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
+        
+                sh "docker push ${env.dockerHubUser}/${project}:${imageTag}"
+            }
+        
+            echo '''
+            ███████╗    ██╗   ██╗     ██████╗     ██████╗    ███████╗
+            ██╔════╝    ██║   ██║    ██╔════╝    ██╔════╝    ██╔════╝
+            ███████╗    ██║   ██║    ██║         ██║         █████╗
+            ╚════██║    ██║   ██║    ██║         ██║         ██╔══╝
+            ███████║    ╚██████╔╝    ╚██████╗    ╚██████╗    ███████╗
+            ╚══════╝     ╚═════╝      ╚═════╝     ╚═════╝    ╚══════╝
+            '''
+        
 }
