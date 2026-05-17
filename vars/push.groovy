@@ -1,4 +1,4 @@
-def call(String credentialsId, String project, String imageTag){
+def call(String credentialsId, String imageName, String imageTag){
 
             echo '''
             ██████╗     ██╗   ██╗    ███████╗    ██╗  ██╗
@@ -18,7 +18,7 @@ def call(String credentialsId, String project, String imageTag){
         
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
         
-                sh "docker push ${env.dockerHubUser}/${project}:${imageTag}"
+                sh "docker push ${env.dockerHubUser}/${imageName}:${imageTag}"
             }
         
             echo '''
